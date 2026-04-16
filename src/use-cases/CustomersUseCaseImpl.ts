@@ -1,8 +1,8 @@
-import { CustomersService } from './CustomersService';
-import { CustomersRepository } from '../repository/CustomersRepository';
-import { Customer } from '../domain/Customer';
+import { CustomersUseCase } from '../application/use-cases/CustomersUseCase';
+import { Customer } from '../domain/entity/Customer';
+import { CustomersRepository } from '../domain/repository/CustomersRepository';
 
-export class CustomersServiceImpl implements CustomersService {
+export class CustomersUseCaseImpl implements CustomersUseCase {
   constructor(private repository: CustomersRepository) {}
 
   async findByFilter(customer: Customer): Promise<Customer[]> {

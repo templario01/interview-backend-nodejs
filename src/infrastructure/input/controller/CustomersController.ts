@@ -1,18 +1,21 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { CustomersService } from '../service/CustomersService';
-import { Customer } from '../domain/Customer';
+import { CustomersUseCase } from '../../../application/use-cases/CustomersUseCase';
+import { Customer } from '../../../domain/entity/Customer';
 
 export class CustomersController {
-  constructor(private service: CustomersService) {}
+  constructor(private useCase: CustomersUseCase) {}
 
   async findByFilter(event: APIGatewayProxyEvent) {
     if (!event.queryStringParameters?.name) {
       return this.apiResponseBadRequestError();
     }
     const { name } = event.queryStringParameters;
+    if (!name.match(/[a-zA-Z]/)) {
+      return this.apiResponseBadRequestError();
+    }
 
     return this.apiResponseOk(
-      await this.service.findByFilter(new Customer({ name }))
+      await this.useCase.findByFilter(new Customer({ name }))
     );
   }
 

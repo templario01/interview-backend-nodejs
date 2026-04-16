@@ -1,8 +1,8 @@
-import { CustomersServiceImpl } from '../CustomersServiceImpl';
-import { Customer } from '../../domain/Customer';
-import { CustomersRepository } from '../../repository/CustomersRepository';
+import { CustomersUseCaseImpl } from '../CustomersUseCaseImpl';
+import { Customer } from '../../../domain/entity/Customer';
+import { CustomersRepository } from '../../../domain/repository/CustomersRepository';
 
-describe('CustomersServiceImpl', () => {
+describe('CustomersUseCaseImpl', () => {
   describe('findByFilter', () => {
     it('should return customers', async () => {
       // Prepare
@@ -13,12 +13,13 @@ describe('CustomersServiceImpl', () => {
               id: 'customerId',
               name: 'name',
               lastName: 'lastName',
+              phoneNumber: '011-962-7516',
             },
           ])
         ),
       } as unknown as CustomersRepository;
 
-      const service = new CustomersServiceImpl(repository);
+      const service = new CustomersUseCaseImpl(repository);
 
       // Execute
       const response = await service.findByFilter(new Customer({ name: 'A' }));
@@ -30,6 +31,7 @@ describe('CustomersServiceImpl', () => {
           name: 'name',
           lastName: 'lastName',
           email: 'nlastName@ihfintech.com.pe',
+          phoneNumber: '011-962-7516',
         },
       ]);
       expect(repository.findByFilter).toBeCalledWith({

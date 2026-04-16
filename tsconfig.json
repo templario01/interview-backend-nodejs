@@ -8,8 +8,8 @@
     "sourceMap": true,
     "inlineSources": true,
     "moduleResolution": "node",
-    "module": "es2020"
+    "module": "es2020",
+    "types": ["jest", "node"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "**/__tests__/*"]
 }
